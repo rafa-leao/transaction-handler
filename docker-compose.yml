@@ -43,6 +43,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: autorizador:latest
     container_name: autorizador
     ports:
       - "8080:8080"
