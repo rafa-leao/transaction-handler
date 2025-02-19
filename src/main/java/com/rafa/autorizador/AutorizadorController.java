@@ -11,12 +11,14 @@ import com.rafa.autorizador.cartao.CartaoRecord;
 import com.rafa.autorizador.cartao.ManipuladorCartao;
 import com.rafa.autorizador.cartao.exception.CartaoExistenteException;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class AutorizadorController {
     private @Autowired ManipuladorCartao manipulador;
 
     @PostMapping("/cartoes")
-    public ResponseEntity<CartaoRecord> autorizaCartao(@RequestBody CartaoRecord cartao) throws CartaoExistenteException {
+    public ResponseEntity<CartaoRecord> criaCartao(@Valid @RequestBody CartaoRecord cartao) throws CartaoExistenteException {
         return ResponseEntity.status(HttpStatus.CREATED).body(manipulador.cria(cartao));
     }
 }

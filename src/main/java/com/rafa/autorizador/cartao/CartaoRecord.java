@@ -1,3 +1,8 @@
 package com.rafa.autorizador.cartao;
 
-public record CartaoRecord(String numeroCartao, String senha) {}
+import jakarta.validation.constraints.Size;
+
+public record CartaoRecord(
+                @Size(min = 16, max = 16) String numeroCartao,
+                @Size(min = 4) String senha) {
+}
