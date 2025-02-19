@@ -66,6 +66,7 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_extensions:/opt/sonarqube/extensions
 
+# volumes para persistir os dados de Login do SonarQube
 volumes:
   sonarqube_conf:
   sonarqube_data:
