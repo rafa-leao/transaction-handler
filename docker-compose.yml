@@ -26,18 +26,26 @@ services:
       MYSQL_DATABASE: miniautorizador
       MYSQL_ROOT_PASSWORD:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-
-      version: "3.7"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
 
   autorizador:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
     build:
       context: .
       dockerfile: Dockerfile
     container_name: autorizador
     ports:
       - "8080:8080"
-    depends_on:
-      - mysql
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/miniautorizador
       SPRING_DATASOURCE_USERNAME: root
