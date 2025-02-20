@@ -27,12 +27,12 @@ public class CriarCartaoServiceTests {
     }
 
     @Test
-    void testCriaCartao_Success() throws CartaoExistenteException {
+    void testaCriacaoCartao_Successo() throws CartaoExistenteException {
         assertEquals(cartaoRecord, cartao.cria(cartaoRecord));
     }
 
     @Test
-    void testCriaCartao_CartaoExistenteException() {
+    void testaCriacaoCartao_CartaoExistenteException() {
         doThrow(DataIntegrityViolationException.class)
                 .when(repository).save(any(Cartao.class));
 

@@ -16,6 +16,7 @@ import com.rafa.autorizador.config.exception.CartaoExistenteException;
 import com.rafa.autorizador.config.exception.CartaoInexistenteException;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 
 @RestController
 public class AutorizadorController {
@@ -23,12 +24,14 @@ public class AutorizadorController {
     private @Autowired BuscadorSaldo buscadorSaldo;
 
     @PostMapping("/cartoes")
-    public ResponseEntity<CartaoRecord> criaCartao(@Valid @RequestBody CartaoRecord cartao) throws CartaoExistenteException {
+    public ResponseEntity<CartaoRecord> criaCartao(@Valid @RequestBody CartaoRecord cartao)
+            throws CartaoExistenteException {
         return ResponseEntity.status(HttpStatus.CREATED).body(criadorCartao.cria(cartao));
     }
 
     @GetMapping("/cartoes/{numeroCartao}")
-    public ResponseEntity<Double> buscaSaldo(@PathVariable String numeroCartao) throws CartaoInexistenteException {
+    public ResponseEntity<Double> buscaSaldo(@PathVariable @Size(min = 16, max = 16) String numeroCartao)
+            throws CartaoInexistenteException {
         return ResponseEntity.ok(buscadorSaldo.busca(numeroCartao));
     }
 }
