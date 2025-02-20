@@ -16,15 +16,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import com.rafa.autorizador.config.exception.CartaoExistenteException;
 
 @ExtendWith(MockitoExtension.class)
-public class CartaoServiceTests {
-
-    @Mock
-    private CartaoRepository cartaoRepository;
-
-    @InjectMocks
-    private CartaoService cartaoService;
-
+public class CriarCartaoServiceTests {
     private CartaoRecord cartaoRecord;
+    private @Mock CartaoRepository repository;
+    private @InjectMocks CriarCartaoService cartao;
 
     @BeforeEach
     public void setUp() {
@@ -33,15 +28,15 @@ public class CartaoServiceTests {
 
     @Test
     void testCriaCartao_Success() throws CartaoExistenteException {
-        assertEquals(cartaoRecord, cartaoService.cria(cartaoRecord));
+        assertEquals(cartaoRecord, cartao.cria(cartaoRecord));
     }
 
     @Test
     void testCriaCartao_CartaoExistenteException() {
         doThrow(DataIntegrityViolationException.class)
-                .when(cartaoRepository).save(any(Cartao.class));
+                .when(repository).save(any(Cartao.class));
 
         assertThrows(CartaoExistenteException.class,
-                () -> cartaoService.cria(cartaoRecord));
+                () -> cartao.cria(cartaoRecord));
     }
 }

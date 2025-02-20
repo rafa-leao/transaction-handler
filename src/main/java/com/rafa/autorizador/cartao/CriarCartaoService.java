@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.rafa.autorizador.config.exception.CartaoExistenteException;
 
 @Service
-public class CartaoService implements ManipuladorCartao {
+public class CriarCartaoService implements CriadorCartao {
     private @Autowired CartaoRepository cartaoRepository;
     
     @Override

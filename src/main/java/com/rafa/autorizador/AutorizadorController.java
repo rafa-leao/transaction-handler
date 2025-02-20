@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafa.autorizador.cartao.CartaoRecord;
-import com.rafa.autorizador.cartao.ManipuladorCartao;
+import com.rafa.autorizador.cartao.CriadorCartao;
 import com.rafa.autorizador.cartao.saldo.BuscadorSaldo;
 import com.rafa.autorizador.config.exception.CartaoExistenteException;
 import com.rafa.autorizador.config.exception.CartaoInexistenteException;
@@ -19,12 +19,12 @@ import jakarta.validation.Valid;
 
 @RestController
 public class AutorizadorController {
-    private @Autowired ManipuladorCartao manipulador;
+    private @Autowired CriadorCartao criadorCartao;
     private @Autowired BuscadorSaldo buscadorSaldo;
 
     @PostMapping("/cartoes")
     public ResponseEntity<CartaoRecord> criaCartao(@Valid @RequestBody CartaoRecord cartao) throws CartaoExistenteException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(manipulador.cria(cartao));
+        return ResponseEntity.status(HttpStatus.CREATED).body(criadorCartao.cria(cartao));
     }
 
     @GetMapping("/cartoes/{numeroCartao}")
