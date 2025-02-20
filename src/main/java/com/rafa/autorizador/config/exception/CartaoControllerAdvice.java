@@ -1,4 +1,4 @@
-package com.rafa.autorizador.cartao.exception;
+package com.rafa.autorizador.config.exception;
 
 import java.util.List;
 
@@ -24,5 +24,11 @@ public class CartaoControllerAdvice {
         List<String> erros = e.getBindingResult().getAllErrors()
                 .stream().map(getDefaultMessage -> getDefaultMessage.getDefaultMessage()).toList();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
+    }
+
+    // Retorno para cartão inexistente
+    @ExceptionHandler(CartaoInexistenteException.class)
+    public ResponseEntity<String> handleCartaoInexistenteException(CartaoInexistenteException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

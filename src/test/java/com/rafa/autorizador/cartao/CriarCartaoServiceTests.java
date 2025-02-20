@@ -13,18 +13,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import com.rafa.autorizador.cartao.exception.CartaoExistenteException;
+import com.rafa.autorizador.config.exception.CartaoExistenteException;
 
 @ExtendWith(MockitoExtension.class)
-public class CartaoServiceTests {
-
-    @Mock
-    private CartaoRepository cartaoRepository;
-
-    @InjectMocks
-    private CartaoService cartaoService;
-
+public class CriarCartaoServiceTests {
     private CartaoRecord cartaoRecord;
+    private @Mock CartaoRepository repository;
+    private @InjectMocks CriarCartaoService cartao;
 
     @BeforeEach
     public void setUp() {
@@ -32,16 +27,16 @@ public class CartaoServiceTests {
     }
 
     @Test
-    void testCriaCartao_Success() throws CartaoExistenteException {
-        assertEquals(cartaoRecord, cartaoService.cria(cartaoRecord));
+    void testaCriacaoCartao_Successo() throws CartaoExistenteException {
+        assertEquals(cartaoRecord, cartao.cria(cartaoRecord));
     }
 
     @Test
-    void testCriaCartao_CartaoExistenteException() {
+    void testaCriacaoCartao_CartaoExistenteException() {
         doThrow(DataIntegrityViolationException.class)
-                .when(cartaoRepository).save(any(Cartao.class));
+                .when(repository).save(any(Cartao.class));
 
         assertThrows(CartaoExistenteException.class,
-                () -> cartaoService.cria(cartaoRecord));
+                () -> cartao.cria(cartaoRecord));
     }
 }
