@@ -1,4 +1,4 @@
-package com.rafa.autorizador.cartao.exception;
+package com.rafa.autorizador.config.exception;
 
 import com.rafa.autorizador.cartao.CartaoRecord;
 

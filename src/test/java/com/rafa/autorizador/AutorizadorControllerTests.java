@@ -26,7 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rafa.autorizador.cartao.CartaoRecord;
 import com.rafa.autorizador.cartao.ManipuladorCartao;
-import com.rafa.autorizador.cartao.exception.CartaoExistenteException;
+import com.rafa.autorizador.config.exception.CartaoExistenteException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
