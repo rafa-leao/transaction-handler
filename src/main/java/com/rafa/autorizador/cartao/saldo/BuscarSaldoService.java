@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
 import com.rafa.autorizador.cartao.modelo.Cartao;
@@ -14,6 +15,7 @@ public class BuscarSaldoService implements BuscadorSaldo {
     private @Autowired CartaoRepository cartaoRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public BigDecimal busca(String numeroCartao) throws CartaoInexistenteException {
         Cartao cartao = cartaoRepository.findByNumeroCartao(numeroCartao)
                 .orElseThrow(CartaoInexistenteException::new);
