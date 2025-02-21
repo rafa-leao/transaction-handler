@@ -1,6 +1,6 @@
-package com.rafa.autorizador.config.exception;
+package com.rafa.autorizador.cartao.exception.modelo;
 
-import com.rafa.autorizador.cartao.CartaoRecord;
+import com.rafa.autorizador.cartao.modelo.CartaoRecord;
 
 import lombok.Getter;
 

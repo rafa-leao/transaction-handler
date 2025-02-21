@@ -13,7 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import com.rafa.autorizador.config.exception.CartaoExistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoExistenteException;
+import com.rafa.autorizador.cartao.modelo.Cartao;
+import com.rafa.autorizador.cartao.modelo.CartaoRecord;
+import com.rafa.autorizador.cartao.modelo.CartaoRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class CriarCartaoServiceTests {

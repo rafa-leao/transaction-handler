@@ -1,7 +1,9 @@
 package com.rafa.autorizador.cartao.saldo;
 
-import com.rafa.autorizador.config.exception.CartaoInexistenteException;
+import java.math.BigDecimal;
+
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
 
 public interface BuscadorSaldo {
-    Double busca(String numeroCartao) throws CartaoInexistenteException;
+    BigDecimal busca(String numeroCartao) throws CartaoInexistenteException;
 }
