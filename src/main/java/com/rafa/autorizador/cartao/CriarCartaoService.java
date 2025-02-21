@@ -11,7 +11,7 @@ import com.rafa.autorizador.cartao.modelo.CartaoRecord;
 import com.rafa.autorizador.cartao.modelo.CartaoRepository;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = CartaoExistenteException.class)
 public class CriarCartaoService implements CriadorCartao {
     private @Autowired CartaoRepository cartaoRepository;
     

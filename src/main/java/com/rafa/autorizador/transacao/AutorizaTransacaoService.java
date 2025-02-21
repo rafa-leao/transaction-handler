@@ -16,8 +16,8 @@ public class AutorizaTransacaoService implements AutorizadorTransacao {
 	private @Autowired CartaoRepository cartaoRepository;
 
 	@Override
-	@Transactional
-	public String autoriza(TransacaoRecord transacao) throws TransacaoException {
+	@Transactional(rollbackFor = {CartaoInexistenteParaTransacaoException.class, SaldoInsuficienteException.class, SenhaInvalidaException.class})
+    public String autoriza(TransacaoRecord transacao) throws TransacaoException {
 
 		Cartao cartao = cartaoRepository.findByNumeroCartao(transacao.numeroCartao())
 				.orElseThrow(CartaoInexistenteParaTransacaoException::new);
