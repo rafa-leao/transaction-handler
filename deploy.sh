@@ -1,37 +1,39 @@
 #!/bin/bash
 
-# Parar e remover contêineres existentes
-docker-compose down
+build_application() {
+  ./mvnw clean install
+  if [ $? -ne 0 ]; then
+    echo "falha no build"
+    exit 1
+  fi
+}
 
-# Construir a aplicação usando Maven
-./mvnw clean install -DskipTests
-if [ $? -ne 0 ]; then
-  echo "Falha no build"
-  exit 1
-fi
+start_containers() {
+  docker-compose up --build -d
+  if [ $? -ne 0 ]; then
+    echo "falha ao iniciar contêineres"
+    exit 1
+  fi
+}
 
-# Construir e iniciar os contêineres do Docker Compose
-docker-compose up --build -d
-if [ $? -ne 0 ]; then
-  echo "Falha ao iniciar os contêineres"
-  exit 1
-fi
-
-# Aguardar o SonarQube estar acessível
-echo "Aguardando o SonarQube"
-until $(curl --output /dev/null --silent --head --fail http://localhost:9000/sessions/new); do
+check_health() {
+  echo "aguardando disponibilidade da API"
+  until $(curl --output /dev/null --silent --head --fail -u username:password http://localhost:8080/actuator/health); do
     printf '.'
     sleep 5
-done
-echo "SonarQube pronto"
+  done
+  echo "API pronta para receber requisições"
+}
 
-# Executar a análise do Sonar
-SONAR_TOKEN="sqa_af5751049c63cc446c89fea8557e7c8eff6b8821"
-./mvnw clean verify sonar:sonar -Dsonar.projectKey=autorizador -Dsonar.projectName=autorizador -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN
-if [ $? -ne 0 ]; then
-  echo "Falha na análise do Sonar"
-  exit 1
+if [ "$1" == "--off" ]; then
+  docker-compose down
+  exit 0
 fi
 
-# Exibir o status dos contêineres
+build_application
+
+start_containers
+
+check_health
+
 docker-compose ps
