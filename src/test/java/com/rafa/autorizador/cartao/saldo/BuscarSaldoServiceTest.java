@@ -33,7 +33,7 @@ public class BuscarSaldoServiceTest {
     }
 
     @Test
-    public void testBuscaSaldo_Success() throws CartaoInexistenteException {
+    public void testBuscaSaldo_Successo() throws CartaoInexistenteException {
         when(cartaoRepository.findByNumeroCartao(anyString())).thenReturn(Optional.of(cartao));
 
         BigDecimal saldo = buscarSaldoService.busca(numeroCartao);

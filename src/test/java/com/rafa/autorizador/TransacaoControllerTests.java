@@ -26,11 +26,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteParaTransacaoException;
-import com.rafa.autorizador.cartao.exception.modelo.SaldoInsuficienteException;
-import com.rafa.autorizador.cartao.exception.modelo.SenhaInvalidaException;
 import com.rafa.autorizador.transacao.AutorizadorTransacao;
 import com.rafa.autorizador.transacao.TransacaoRecord;
+import com.rafa.autorizador.transacao.exception.modelo.CartaoInexistenteParaTransacaoException;
+import com.rafa.autorizador.transacao.exception.modelo.SaldoInsuficienteException;
+import com.rafa.autorizador.transacao.exception.modelo.SenhaInvalidaException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -69,7 +69,7 @@ public class TransacaoControllerTests {
     }
 
     @Test
-    void testaAutorizacaoDeTransacao_CartaoInexistenteException() throws Exception {
+    void testaAutorizacaoDeTransacao_CartaoInexistenteParaTransacaoException() throws Exception {
         doThrow(new CartaoInexistenteParaTransacaoException())
                 .when(autorizadorTransacao).autoriza(any(TransacaoRecord.class));
         assure(status().isUnprocessableEntity());
@@ -89,8 +89,7 @@ public class TransacaoControllerTests {
         assure(status().isUnprocessableEntity());
     }
 
-    private ResultActions assure(ResultMatcher condicao)
-            throws Exception {
+    private ResultActions assure(ResultMatcher condicao) throws Exception {
         return mvc.perform(post("/transacoes")
                 .with(httpBasic("username", "password"))
                 .contentType(MediaType.APPLICATION_JSON)

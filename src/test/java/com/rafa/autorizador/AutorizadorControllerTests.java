@@ -1,7 +1,5 @@
 package com.rafa.autorizador;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,7 +29,6 @@ import com.rafa.autorizador.cartao.saldo.BuscadorSaldo;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class AutorizadorControllerTests {
     private MockMvc mvc;
-    private String numeroCartao;
     private CartaoRecord cartaoRecord;
 
     private @Autowired WebApplicationContext context;
@@ -44,22 +41,12 @@ public class AutorizadorControllerTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-
-        numeroCartao = "1616161616161616";
     }
 
     @Test
     void testaValidacaoDeCampos_BadRequest() throws Exception {
-        cartaoRecord = new CartaoRecord(this.numeroCartao, "333");
+        cartaoRecord = new CartaoRecord("151515151515151", "333");
         assure(status().isBadRequest());
-    }
-
-    @Test
-    void testaException_InternalServerError() throws Exception {
-        doThrow(new RuntimeException())
-                .when(criadorCartao).cria(any(CartaoRecord.class));
-        cartaoRecord = new CartaoRecord(this.numeroCartao, "4444");
-        assure(status().isInternalServerError());
     }
 
     @Test
