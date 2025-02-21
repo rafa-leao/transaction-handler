@@ -1,4 +1,4 @@
-package com.rafa.autorizador.config.exception;
+package com.rafa.autorizador.cartao.exception;
 
 import java.util.List;
 
@@ -8,7 +8,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.rafa.autorizador.cartao.CartaoRecord;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoExistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteParaTransacaoException;
+import com.rafa.autorizador.cartao.exception.modelo.SaldoInsuficienteException;
+import com.rafa.autorizador.cartao.exception.modelo.SenhaInvalidaException;
+import com.rafa.autorizador.cartao.modelo.CartaoRecord;
 
 @RestControllerAdvice
 public class CartaoControllerAdvice {

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rafa.autorizador.cartao.CartaoRecord;
 import com.rafa.autorizador.cartao.CriadorCartao;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoExistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.SaldoInsuficienteException;
+import com.rafa.autorizador.cartao.exception.modelo.SenhaInvalidaException;
+import com.rafa.autorizador.cartao.modelo.CartaoRecord;
 import com.rafa.autorizador.cartao.saldo.BuscadorSaldo;
-import com.rafa.autorizador.config.exception.CartaoExistenteException;
-import com.rafa.autorizador.config.exception.CartaoInexistenteException;
-import com.rafa.autorizador.config.exception.SaldoInsuficienteException;
-import com.rafa.autorizador.config.exception.SenhaInvalidaException;
 import com.rafa.autorizador.transacao.AutorizadorTransacao;
 import com.rafa.autorizador.transacao.TransacaoRecord;
 

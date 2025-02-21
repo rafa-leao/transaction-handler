@@ -10,6 +10,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,11 +29,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rafa.autorizador.cartao.CartaoRecord;
 import com.rafa.autorizador.cartao.CriadorCartao;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoExistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
+import com.rafa.autorizador.cartao.modelo.CartaoRecord;
 import com.rafa.autorizador.cartao.saldo.BuscadorSaldo;
-import com.rafa.autorizador.config.exception.CartaoExistenteException;
-import com.rafa.autorizador.config.exception.CartaoInexistenteException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -75,7 +77,7 @@ public class AutorizadorControllerTests {
 
     @Test
     void testaBuscaDeSaldo_Sucesso() throws Exception {
-        when(buscadorSaldo.busca(anyString())).thenReturn(500.0);
+        when(buscadorSaldo.busca(anyString())).thenReturn(BigDecimal.valueOf(500.00));
 
         assure(get("/cartoes/{numeroCartao}", this.numeroCartao), status().isOk(), cartaoRecord);
     }

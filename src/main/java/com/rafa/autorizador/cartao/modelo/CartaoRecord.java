@@ -1,4 +1,4 @@
-package com.rafa.autorizador.cartao;
+package com.rafa.autorizador.cartao.modelo;
 
 import jakarta.validation.constraints.Size;
 

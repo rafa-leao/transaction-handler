@@ -3,12 +3,12 @@ package com.rafa.autorizador.transacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rafa.autorizador.cartao.Cartao;
-import com.rafa.autorizador.cartao.CartaoRepository;
-import com.rafa.autorizador.config.exception.CartaoInexistenteException;
-import com.rafa.autorizador.config.exception.CartaoInexistenteParaTransacaoException;
-import com.rafa.autorizador.config.exception.SaldoInsuficienteException;
-import com.rafa.autorizador.config.exception.SenhaInvalidaException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteParaTransacaoException;
+import com.rafa.autorizador.cartao.exception.modelo.SaldoInsuficienteException;
+import com.rafa.autorizador.cartao.exception.modelo.SenhaInvalidaException;
+import com.rafa.autorizador.cartao.modelo.Cartao;
+import com.rafa.autorizador.cartao.modelo.CartaoRepository;
 
 @Service
 public class AutorizaTransacaoService implements AutorizadorTransacao {

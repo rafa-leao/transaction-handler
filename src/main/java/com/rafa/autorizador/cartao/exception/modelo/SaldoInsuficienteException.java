@@ -1,4 +1,6 @@
-package com.rafa.autorizador.config.exception;
+package com.rafa.autorizador.cartao.exception.modelo;
+
+import com.rafa.autorizador.cartao.exception.StatusErroEnum;
 
 import lombok.Getter;
 

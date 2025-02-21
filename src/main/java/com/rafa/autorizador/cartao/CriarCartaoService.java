@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.rafa.autorizador.config.exception.CartaoExistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoExistenteException;
+import com.rafa.autorizador.cartao.modelo.Cartao;
+import com.rafa.autorizador.cartao.modelo.CartaoRecord;
+import com.rafa.autorizador.cartao.modelo.CartaoRepository;
 
 @Service
 public class CriarCartaoService implements CriadorCartao {

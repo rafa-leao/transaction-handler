@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rafa.autorizador.cartao.Cartao;
-import com.rafa.autorizador.cartao.CartaoRepository;
-import com.rafa.autorizador.config.exception.CartaoInexistenteException;
+import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
+import com.rafa.autorizador.cartao.modelo.Cartao;
+import com.rafa.autorizador.cartao.modelo.CartaoRepository;
 
 @Service
 public class BuscarSaldoService implements BuscadorSaldo {
