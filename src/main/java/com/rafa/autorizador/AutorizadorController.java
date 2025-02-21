@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rafa.autorizador.cartao.CriadorCartao;
 import com.rafa.autorizador.cartao.exception.modelo.CartaoExistenteException;
 import com.rafa.autorizador.cartao.exception.modelo.CartaoInexistenteException;
-import com.rafa.autorizador.cartao.exception.modelo.SaldoInsuficienteException;
-import com.rafa.autorizador.cartao.exception.modelo.SenhaInvalidaException;
 import com.rafa.autorizador.cartao.modelo.CartaoRecord;
 import com.rafa.autorizador.cartao.saldo.BuscadorSaldo;
 import com.rafa.autorizador.transacao.AutorizadorTransacao;
 import com.rafa.autorizador.transacao.TransacaoRecord;
+import com.rafa.autorizador.transacao.exception.modelo.TransacaoException;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
@@ -44,7 +43,7 @@ public class AutorizadorController {
 
     @PostMapping("/transacoes")
     public ResponseEntity<String> autorizaTransacao(@Valid @RequestBody TransacaoRecord transacaoRecord)
-            throws CartaoInexistenteException, SaldoInsuficienteException, SenhaInvalidaException {
+            throws TransacaoException {
         return ResponseEntity.status(HttpStatus.CREATED).body(autorizadorTransacao.autoriza(transacaoRecord));
     }
 }

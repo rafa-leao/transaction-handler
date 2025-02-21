@@ -1,4 +1,4 @@
-package com.rafa.autorizador.cartao.exception;
+package com.rafa.autorizador.transacao.exception.modelo;
 
 public enum StatusErroEnum {
     SALDO_INSUFICIENTE,
