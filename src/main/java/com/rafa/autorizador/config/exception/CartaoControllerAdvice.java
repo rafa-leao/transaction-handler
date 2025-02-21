@@ -18,6 +18,30 @@ public class CartaoControllerAdvice {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getCartaoRecord());
     }
 
+    // Retorno para saldo insuficiente
+    @ExceptionHandler(SaldoInsuficienteException.class)
+    public ResponseEntity<StatusErroEnum> handleSaldoInsuficienteException(SaldoInsuficienteException e) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getStatusErro());
+    }
+
+    // Retorno para senha inválida
+    @ExceptionHandler(SenhaInvalidaException.class)
+    public ResponseEntity<StatusErroEnum> handleSenhaInvalidaException(SenhaInvalidaException e) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getStatusErro());
+    }
+
+    // Retorno para cartão inexistente durante uma transação
+    @ExceptionHandler(CartaoInexistenteParaTransacaoException.class)
+    public ResponseEntity<StatusErroEnum> handleCartaoInexistenteParaTransacaoException(CartaoInexistenteParaTransacaoException e) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getStatusErroEnum());
+    }
+
+    // Retorno para cartão inexistente
+    @ExceptionHandler(CartaoInexistenteException.class)
+    public ResponseEntity<String> handleCartaoInexistenteException(CartaoInexistenteException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
     // Retorno para validação de campos
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -26,9 +50,9 @@ public class CartaoControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
     }
 
-    // Retorno para cartão inexistente
-    @ExceptionHandler(CartaoInexistenteException.class)
-    public ResponseEntity<String> handleCartaoInexistenteException(CartaoInexistenteException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    // Retorno para exceções genéricas
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 }

@@ -1,3 +1,12 @@
 package com.rafa.autorizador.config.exception;
 
-public class CartaoInexistenteException extends Exception {}
+import lombok.Getter;
+
+@Getter
+public class CartaoInexistenteException extends Exception {
+    private StatusErroEnum statusErroEnum;
+
+    public CartaoInexistenteException() {
+        this.statusErroEnum = StatusErroEnum.CARTAO_INEXISTENTE;
+    }
+}
