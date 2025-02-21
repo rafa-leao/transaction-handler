@@ -1,13 +1,5 @@
 #!/bin/bash
 
-build_application() {
-  ./mvnw clean install
-  if [ $? -ne 0 ]; then
-    echo "falha no build"
-    exit 1
-  fi
-}
-
 start_containers() {
   docker-compose up --build -d
   if [ $? -ne 0 ]; then
@@ -29,8 +21,6 @@ if [ "$1" == "--off" ]; then
   docker-compose down
   exit 0
 fi
-
-build_application
 
 start_containers
 
